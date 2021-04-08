@@ -1,0 +1,17 @@
+.fade-enter {
+  right: 300px;
+}
+
+.fade-enter-active {
+  right: 0px;
+  transition: 0.5s ease-in all;
+}
+
+.fade-leave {
+  right: 0px;
+}
+
+.fade-leave-active {
+  right: 300px;
+  transition: 1s ease-in all;
+}

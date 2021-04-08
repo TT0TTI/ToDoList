@@ -6,6 +6,7 @@ const App = () => {
     const [list, setList] = useState([]);
     const [todo, setTodo] = useState('');
     const toDoList = useRef(null);
+    const nextId = useRef(0);
 
     const writeList = useCallback((e) => {
         setTodo(e.target.value);
@@ -13,24 +14,27 @@ const App = () => {
 
     const plusList = useCallback((e) => {
         e.preventDefault();
+        const item = {
+            id : nextId.current, 
+            todo : todo,
+            checked : false
+        };
         if (todo === "") {
-            toDoList
-                .current
-                .focus();
+            toDoList.current.focus();
         } else {
-            setList(list.concat(todo));
+            setList(list.concat(item));
             setTodo('');
-            toDoList
-                .current
-                .focus();
+            toDoList.current.focus();
+            nextId.current += 1;
         }
     }, [todo, list]);
 
     const onRemove = useCallback((id) => {
-        const newList = list.slice();
-        newList.splice(id, 1);
+        const newList = list.filter(listItem=>listItem.id !== id);
         return setList(newList);
     }, [list]);
+
+    
 
     return (
         <ToDoTemplate
